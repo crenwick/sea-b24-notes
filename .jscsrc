@@ -3,5 +3,6 @@
     "requireMultipleVarDecl": null,
     "validateQuoteMarks": true,
     "disallowMultipleVarDecl": true,
-    "validateIndentation": 4
+    "validateIndentation": 4,
+    "disallowQuotedKeysInObjects": false
 }
