@@ -1,3 +1,6 @@
+/*jshint node:true*/
+'use strict';
+
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
@@ -11,5 +14,5 @@ require('./routes/notes_routes')(app);
 
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
-  console.log('server running on port: %d', app.get('port'));
+    console.log('server running on port: %d', app.get('port'));
 });
