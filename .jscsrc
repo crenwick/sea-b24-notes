@@ -4,5 +4,5 @@
     "validateQuoteMarks": true,
     "disallowMultipleVarDecl": true,
     "validateIndentation": 4,
-    "disallowQuotedKeysInObjects": false
+    "disallowQuotedKeysInObjects": "allButReserved"
 }
