@@ -1,6 +1,10 @@
 'use strict';
 var Note = require('../models/note');
 
+Note.schema.path('noteTitle').validate(function(value) {
+    return /^[^\s][a-zA-Z]*$/g.test(value);
+}, 'Invalid note title. Should only be one word.');
+
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         Note.find({}, function(err, data) {
