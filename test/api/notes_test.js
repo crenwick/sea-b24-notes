@@ -31,7 +31,6 @@ describe('basic notes crud', function() {
         .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.be.true;
-            console.log(res.body);
             done();
         });
     });
