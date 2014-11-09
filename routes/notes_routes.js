@@ -1,6 +1,10 @@
 'use strict';
 var Note = require('../models/note');
 
+//Note.schema.path('noteBody').validate(function(value) {
+//    return /bye world/i.test(value);
+//}, 'Invalid note body');
+
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         Note.find({}, function(err, data) {
