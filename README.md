@@ -5,5 +5,7 @@ Notes App
 The notes demo app.
 
 GET /api/notes - retreives all the notes in the DB
+
 POST /api/notes - posts a JSON note the the database. Requires a noteTitle (note titles can only be one word).
+
 GET /api/notes/:id - retreives the note with that ID
