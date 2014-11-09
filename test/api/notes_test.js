@@ -15,7 +15,7 @@ describe('basic notes crud', function() {
     it('should be able to create a note', function(done) {
         chai.request('http://localhost:3000')
         .post('/api/notes')
-        .send({noteTitle: 'first', noteBody: 'hello world'})
+        .send({noteTitle: 'firstTitle', noteBody: 'hello world'})
         .end(function(err, res) {
             expect(err).to.eql(null);
             expect(res.body.noteBody).to.eql('hello world');
@@ -31,6 +31,7 @@ describe('basic notes crud', function() {
         .end(function(err, res) {
             expect(err).to.eql(null);
             expect(Array.isArray(res.body)).to.be.true;
+            console.log(res.body);
             done();
         });
     });
