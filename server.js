@@ -4,12 +4,20 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
+var passport = require('passport');
 var app = express();
 
 app.use(bodyparser.json());
+app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
+app.set('secret', process.env.SECRET || 'changethistoo');
 
-mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/notes_development');
+mongoose.connect(process.env.MONGO_URL ||
+                 process.env.MONGOLAB_URI ||
+                 'mongodb://localhost/notes_development');
 
+require('./lib/passport')(passport);
+
+require('./routes/user_routes')(app, passport);
 require('./routes/notes_routes')(app);
 
 app.set('port', process.env.PORT || 3000);
