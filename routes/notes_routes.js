@@ -1,12 +1,13 @@
 'use strict';
 var Note = require('../models/note');
 
-Note.schema.path('noteTitle').validate(function(value) {
-    return /^[^\s][a-zA-Z]*$/g.test(value);
-}, 'Invalid note title. Should only be one word.');
+//Note.schema.path('noteTitle').validate(function(value) {
+//    return /^[^\s][a-zA-Z]*$/g.test(value);
+//}, 'Invalid note title. Should only be one word.');
 
-module.exports = function(app) {
+module.exports = function(app, auth) {
     app.get('/api/notes', function(req, res) {
+        console.log(req.user.basic.email);
         Note.find({}, function(err, data) {
             if (err) return res.status(500).send('there was an error');
             res.json(data);
