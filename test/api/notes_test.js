@@ -16,7 +16,7 @@ describe('basic notes crud', function() {
     it('should create a user', function(done) {
         chai.request('http://localhost:3000')
         .post('/api/users')
-        .send({email: '123@example.com', password: 'password123'})
+        .send({'email': '123@example.com', 'password': 'password123'})
         .end(function(err, res) {
             expect(err).to.eql(null);
             expect(res.body).to.have.property('jwt');
