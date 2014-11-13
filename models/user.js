@@ -24,7 +24,8 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.generateToken = function(secret) {
     var _this = this;
     var token = jwt.encode({
-        iss: _this._id
+        iss: _this._id,
+        exp: Date.now()
     }, secret);
     return token;
 };

@@ -8,12 +8,13 @@ var passport = require('passport');
 var app = express();
 
 app.use(bodyparser.json());
-app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
-//app.set('secret', process.env.SECRET || 'changethistoo');
-
 mongoose.connect(process.env.MONGO_URL ||
                  process.env.MONGOLAB_URI ||
                  'mongodb://localhost/notes_development');
+app.set('jwtSecret', process.env.JWT_SECRET || 'changethisordie');
+//app.set('secret', process.env.SECRET || 'changethistoo');
+
+app.use(passport.initialize());
 
 require('./lib/passport')(passport);
 var jwtauth = require('./lib/jwt_auth')(app.get('jwtSecret'));
