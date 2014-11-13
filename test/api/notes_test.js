@@ -19,7 +19,7 @@ describe('basic notes crud', function() {
         .send({email: '123@example.com', password: 'password123'})
         .end(function(err, res) {
             expect(err).to.eql(null);
-            expect(res.body.jwt).to.have.property('jwt');
+            expect(res.body).to.have.property('jwt');
             jwttoken = res.body.jwt;
             done();
         });
