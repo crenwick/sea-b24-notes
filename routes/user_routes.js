@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
             var re = /^\w+$/; // only letters, numbers and underscores
             var space = /^[^\s][a-zA-Z]*$/g; // no spaces
             if (!re.test(req.body.password)) return res.status(500).send('password much be only letters and numbers');
-            if (!space.test(req.body.password)) return res.status(500).send('password cannot have spaces');
+            //if (!space.test(req.body.password)) return res.status(500).send('password cannot have spaces');
             if (req.body.password.length < 6) return res.status(500).send('make a longer password');
             if (req.body.username === req.body.password) return res.status(500).send('passwords cannot match usernames');
 
