@@ -4,7 +4,7 @@ Notes App
 
 The notes demo app. Requires a login and jwt-token exchange to create, lookup, and delete notes.
 
-POST /api/users with {email: email@exmaple.com, password: pass123} to create an account
+POST /api/users with {email: email@example.com, password: pass123} to create an account
 
 GET /api/users with email@example.com:pass123 to retrieve a JWT token
 
