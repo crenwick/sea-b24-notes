@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
     basic: {
         email: 'String',
         password: 'String' //will be hashed
-    }
+    },
+    adminLevel: {type: Number, default: 0}
 });
 
 //increasing the genSaltSync param is exp. Takes longer but is more secure.
