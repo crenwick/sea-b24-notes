@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
-                node: true
+              jshintrc: '.jshintrc'
             },
             src: ['models/**/*.js', 'server.js', 'routes/**/*.js']
         },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         simplemocha: {
             src: ['test/api/**/*.js']
         },
-        
+
         mongo_drop: {
             test: {
                 'uri': 'mongodb://localhost/notes_test',

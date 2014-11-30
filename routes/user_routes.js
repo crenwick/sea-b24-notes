@@ -17,16 +17,14 @@ module.exports = function(app, passport) {
             // put in a check password and validation
 
             var re = /^\w+$/; // only letters, numbers and underscores
-            var space = /^[^\s][a-zA-Z]*$/g; // no spaces
             if (!re.test(req.body.password)) return res.status(500).send('password much be only letters and numbers');
-            //if (!space.test(req.body.password)) return res.status(500).send('password cannot have spaces');
             if (req.body.password.length < 6) return res.status(500).send('make a longer password');
             if (req.body.username === req.body.password) return res.status(500).send('passwords cannot match usernames');
 
             var newUser = new User();
             newUser.basic.email = req.body.email;
             newUser.basic.password = newUser.generateHash(req.body.password);
-            newUser.save(function(err, data) {
+            newUser.save(function(err) { // add (err, data) for the data variable
                 if (err) return res.status(500).send('server error');
                 res.json({jwt: newUser.generateToken(app.get('jwtSecret'))});
             });
