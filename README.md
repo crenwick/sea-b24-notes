@@ -31,9 +31,13 @@ Angular Notes
 app/index.html:
 ```
 <div data-ng-app="notesApp">
-    <div data-ng-controller="notesCtrl"></div>
-  <h2>{{greeting}}</h2>
-  <input type="text" data-ng-model="greeting"/>
+    <div data-ng-controller="notesCtrl">
+      <h2>{{greeting}}</h2>
+      <input type="text" data-ng-model="greeting"/>
+        <div data-ng-repeat="note in notes">
+          <p>{{note.noteBody}}</p>
+        </div>
+    </div>
 </div>
 <script src="client_bundle.js"></script>
 ```
@@ -49,8 +53,20 @@ app/js/notes/controllers/notes_controller.js:
 ```
 module.exports = function(app) {
   // dont build anything inside anuglar with '$'
-  app.controller('notesCtrl', ['$scope', function($scope) {
-    $scope.gretting = 'Hello world';
+  app.controller('notesCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.index = function() {
+        $http({
+            method: 'GET',
+            url: '/api/notes',
+        })
+        .success(function(data) { //status can be a second parameter
+            $scope.notes = data;
+        })
+        .error(function(data, status){
+            console.log(data);
+        });
+    };
+    $scope.index(); // this will be called differently later
   }]);
 };
 ```
