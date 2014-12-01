@@ -7,4 +7,3 @@ test/test_bundle.js
 .DS_Store
 **/*.sw?
 app/js/react/build/
-.sass-cache/

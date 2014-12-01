@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         src: ['build/']
       },
       react: {
-        src: ['app/js/react/build/']
+        src: ['app/js/react_build/']
       }
     },
 
@@ -76,9 +76,9 @@ module.exports = function(grunt) {
     react: {
       files: {
         expand: true,
-        cwd: 'app/js/react',
+        cwd: 'app/js',
         src: ['**/*.jsx'],
-        dest: 'app/js/react/build',
+        dest: 'app/js/react_build',
         ext: '.js'
       }
     },

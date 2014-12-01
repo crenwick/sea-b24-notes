@@ -15,3 +15,8 @@ GET /v1/api/notes - retreives all the notes in the DB
 POST /v1/api/notes - posts a JSON note the the database. Requires a noteTitle (note titles can only be one word).
 
 GET /v1/api/notes/:id - retreives the note with that ID
+
+{"email": "email@example.com", "password": "pass123456"}
+{
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDdjYTY1ZGZiNjFlYTk0MWEzZTUzMGEiLCJleHAiOjE0MTc0NTUxOTc2NDd9.HGzqRk_h0QRWVd0mlmsCZbG-eBaX1i-w5sqtTVq68lU"
+}
