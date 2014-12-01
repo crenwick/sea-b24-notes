@@ -81,13 +81,21 @@ module.exports = function(grunt) {
         dest: 'app/react/build',
         ext: '.js'
       }
+    },
+
+    sass: {
+      dist: {
+        files: {
+          'build/main.css': 'app/sass/main.sass'
+        }
+      }
     }
   });
 
   grunt.registerTask('lint', ['jshint', 'jscs']);
   grunt.registerTask('test', ['lint', 'mongo_drop', 'simplemocha']);
   grunt.registerTask('build:react', ['clean:react', 'react']);
-  grunt.registerTask('build:dev', ['build:react', 'clean:dev', 'lint', 'browserify:dev', 'copy:dev']);
+  grunt.registerTask('build:dev', ['build:react', 'clean:dev', 'lint', 'browserify:dev', 'sass', 'copy:dev']);
   grunt.registerTask('build:test', ['browserify:test']);
   grunt.registerTask('default', ['test']);
 };
