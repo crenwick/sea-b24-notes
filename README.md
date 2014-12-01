@@ -25,10 +25,13 @@ Angular Notes
 ==============
 
 `$ bower install --save angular`
+
 `$ mkdir app/js/notes`
+
 app/index.html:
 ```
 <div data-ng-app="notesApp">
+    <div data-ng-controller="notesCtrl"></div>
   <h2>{{greeting}}</h2>
   <input type="text" data-ng-model="greeting"/>
 </div>
@@ -39,4 +42,15 @@ app/js/client.js:
 ```
 require('angular/angular'); // do no give this a variable
 var notesApp = angular.module('notesApp', []); // creates a module with an array of dependencies
+require('./notes/controllers/notes_controller')(notesApp);
+```
+
+app/js/notes/controllers/notes_controller.js:
+```
+module.exports = function(app) {
+  // dont build anything inside anuglar with '$'
+  app.controller('notesCtrl', ['$scope', function($scope) {
+    $scope.gretting = 'Hello world';
+  }]);
+};
 ```
