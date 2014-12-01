@@ -20,3 +20,23 @@ GET /v1/api/notes/:id - retreives the note with that ID
 {
     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1NDdjYTY1ZGZiNjFlYTk0MWEzZTUzMGEiLCJleHAiOjE0MTc0NTUxOTc2NDd9.HGzqRk_h0QRWVd0mlmsCZbG-eBaX1i-w5sqtTVq68lU"
 }
+
+Angular Notes
+==============
+
+`$ bower install --save angular`
+`$ mkdir app/js/notes`
+app/index.html:
+```
+<div data-ng-app="notesApp">
+  <h2>{{greeting}}</h2>
+  <input type="text" data-ng-model="greeting"/>
+</div>
+<script src="client_bundle.js"></script>
+```
+
+app/js/client.js:
+```
+require('angular/angular'); // do no give this a variable
+var notesApp = angular.module('notesApp', []); // creates a module with an array of dependencies
+```
