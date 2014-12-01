@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         src: ['build/']
       },
       react: {
-        src: ['app/react/build/']
+        src: ['app/js/react/build/']
       }
     },
 
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
     browserify: {
       dev: {
-        src: ['app/js/**/*.js', 'app/react/build/**/*.js'],
+        src: ['app/js/**/*.js'],
         dest: 'build/bundle.js',
         options: {
           transform: ['debowerify']
@@ -76,9 +76,9 @@ module.exports = function(grunt) {
     react: {
       files: {
         expand: true,
-        cwd: 'app/react',
+        cwd: 'app/js/react',
         src: ['**/*.jsx'],
-        dest: 'app/react/build',
+        dest: 'app/js/react/build',
         ext: '.js'
       }
     },
