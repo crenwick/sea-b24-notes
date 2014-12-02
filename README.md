@@ -31,9 +31,25 @@ Angular Notes
 app/index.html:
 ```
 <div data-ng-app="notesApp">
-    <div data-ng-controller="notesCtrl"></div>
-  <h2>{{greeting}}</h2>
-  <input type="text" data-ng-model="greeting"/>
+    <div data-ng-controller="notesCtrl">
+      <label>New Note:</label><br>
+      <input type="text" data-ng-model="newNotes.noteBody"/> <!-- each directive should have at least one '.' in the name -->
+      <button data-ng-click="saveNewNote()">Save Note</button>
+      <h2>{{greeting}}</h2>
+        <input type="text" data-ng-model="greeting"/>
+        <div data-ng-repeat="note in notes">
+          <div data-ng-hide="note.editing">
+          <p>{{note.noteBody}}</p>
+          <button data-ng-click="editNote = true)">Edit</button>
+          <button data-ng-click="deleteNote(note)">Delete</button>
+          </div>
+          <div data-ng-show="note.editing">
+            <input type="text" data-ng-model="note.noteBody">
+            <button data-ng-click="saveNote(note)">Save</button>
+            <button data-ng-click="note.editing = false">Cancel</button>
+          </div>
+        </div>
+    </div>
 </div>
 <script src="client_bundle.js"></script>
 ```
@@ -49,8 +65,62 @@ app/js/notes/controllers/notes_controller.js:
 ```
 module.exports = function(app) {
   // dont build anything inside anuglar with '$'
-  app.controller('notesCtrl', ['$scope', function($scope) {
-    $scope.gretting = 'Hello world';
+  app.controller('notesCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.index = function() {
+        $http({
+            method: 'GET',
+            url: '/api/notes',
+        })
+        .success(function(data) { //status can be a second parameter
+            $scope.notes = data;
+        })
+        .error(function(data, status){
+            console.log(data);
+        });
+    };
+    $scope.index(); // this will be called differently later
+    
+    $scope.saveNewNote = function() {
+      $http({
+        method: 'POST',
+        url: '/api/notes',
+        data: $scope.newNote
+      })
+      .success(function(data) {
+        $scope.notes.push(data);
+        $scope.newNote = null;
+      })
+      .error(fucntion(data) {
+        $console.log(data);
+      });
+    };
+    
+    $scope.saveNote = function(note) {
+      $http({
+        method: 'PUT',
+        url: '/api/notes' + note._id,
+        data: note
+      })
+      .success(function() {
+        note.editing = false;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+    };
+    
+    $scope.deleteNote = function(note) {
+      $http({
+        method: 'DELETE',
+        url: '/api/notes/' + note._id
+      })
+      .success(function() {
+        $scope.notes.splice($scope.notes.indoesOf(note), 1);
+      })
+      .error(function() {
+        console.log(data);
+      }
+    };
   }]);
 };
 ```
