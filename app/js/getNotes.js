@@ -9,7 +9,7 @@ module.exports = function(callback) {
       request.setRequestHeader('jwt', jwt);
     },
     dataType: 'json',
-    url: 'http://localhost:3000/v1/api/notes',
+    url: '/v1/api/notes',
     success: function(data) {
       callback(data);
     },
