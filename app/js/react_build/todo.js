@@ -1,54 +1,61 @@
 /** @jsx React.DOM */
+/* global React*/
+
 React = require('react');
 var getNotes = require('../getNotes');
-var notes = [];
 
 var TodoList = React.createClass({displayName: 'TodoList',
   render: function() {
     var createItem = function(itemText) {
       return React.createElement("li", null, itemText);
     };
-    return React.createElement("ul", null, this.props.items.map(createItem));
+    return React.createElement("ol", null, this.props.items.map(createItem));
   }
 });
 
 var TodoApp = React.createClass({displayName: 'TodoApp',
   getInitialState: function() {
-    getNotes()
-    return {items: notes, text: ''};
+    obj = {items: [], text: ''};
+    this.getAllNotes();
+    return obj;
+  },
+  getAllNotes: function() {
+    getNotes(function(data){
+      data.forEach(function(element, index){
+        console.log(index);
+        //console.log('inside:', this.items);
+        console.log(data[index].noteTitle);
+      });
+    });
+    console.log('outside:', this.items);
+    console.log('outside this.obj:', this.obj);
   },
   onChange: function(e) {
     this.setState({text: e.target.value});
   },
-  listUpdate: function() {
-    this.forceUpdate;
+  handleClick: function(){
+    console.log('CLICKS');
   },
   handleSubmit: function(e) {
     e.preventDefault();
     var nextItems = this.state.items.concat([this.state.text]);
     var nextText = '';
     this.setState({items: nextItems, text: nextText});
+    console.log(this.state.items);
   },
   render: function() {
     return (
       React.createElement("div", null, 
-          React.createElement("h3", null, "Notes App"), 
-          React.createElement(TodoList, {items: this.state.items}), 
-          React.createElement("form", {onSubmit: this.handleSubmit}, 
+        React.createElement("h3", {onClick: this.handleClick}, "Notes App"), 
+        React.createElement(TodoList, {items: this.state.items}), 
+        React.createElement("form", {onSubmit: this.handleSubmit}, 
           React.createElement("input", {onChange: this.onChange, value: this.state.text}), 
           React.createElement("button", null, 'Add #' + (this.state.items.length + 1)
-      )
-      )
+          )
+        )
       )
     );
   }
 });
 
-getNotes(function(x) {
-  var l = x.length;
-  for (var i = 0; i < l; i++) {
-    notes.push(x[i].noteTitle);
-  }
-  React.render(React.createElement(TodoApp, null),
-               document.getElementById('todo')); 
-});
+React.render(React.createElement(TodoApp, null), document.getElementById('todo'));

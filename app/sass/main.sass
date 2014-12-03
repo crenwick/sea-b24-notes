@@ -1,9 +1,24 @@
-body
-  margin: 0
-  padding: 0
-  font-family: Helvetica, sans-serif
-  background: #fefefe
-  color: #444444
+$font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif
 
-.App
+body
+  margin: 0 auto
+  padding: 0
+  font-family: $font-stack
+  background: #eaeaea
+  color: #4d4d4d
+  width: 550px
+
+#todo
   padding: 25px
+  h3
+    font-size: 40px
+    text-align: center
+    width: 100%
+    font-weight: bold
+    text-shadow: -1px -1px rgba(0,0,0,0.2)
+  ol
+    background: #fff
+    margin: 10px 0
+    border: 1px solid #ccc
+    & :hover
+      text-decoration: line-through
