@@ -5,17 +5,21 @@ React = require('react');
 var getNotes = require('../getNotes');
 var c = 0;
 
+var CreateItem = React.createClass({displayName: 'CreateItem',
+  render: function() {
+    return React.createElement("li", null, this.props.data);
+  }
+});
+
 var TodoList = React.createClass({displayName: 'TodoList',
   render: function() {
-    var keyId = this.props.items.length;
-    console.log('length num', this.props);
-    var createItem = function(itemText) {
-      c++;
-      console.log('keyId:', keyId);
-      console.log('c:', c);
-      return React.createElement("li", null, itemText);
-    };
-    return React.createElement("ol", null, this.props.items.map(createItem));
+    return (
+      React.createElement("ol", null, 
+        this.props.items.map(function(item){
+          return React.createElement(CreateItem, {key: this.props.items[this.props.items.indexOf(item)]._id, data: item.noteTitle});
+        }.bind(this))
+      )
+    );
   }
 });
 
@@ -26,7 +30,7 @@ var TodoApp = React.createClass({displayName: 'TodoApp',
   componentDidMount: function() {
     getNotes(function(data){
       data.forEach(function(element, index){
-        var nextItems = this.state.items.concat([data[index].noteTitle]);
+        var nextItems = this.state.items.concat([data[index]]);
         this.setState({items: nextItems, text:''});
       }.bind(this));
     }.bind(this));
@@ -38,12 +42,13 @@ var TodoApp = React.createClass({displayName: 'TodoApp',
     console.log('CLICKS');
   },
   handleSubmit: function(e) {
+    // This needs to send a POST and recieve a proper _id !
     e.preventDefault();
-    var nextItems = this.state.items.concat([this.state.text]);
+    var obj = {noteTitle: '', _id: ''};
+    var nextItems = this.state.items.concat([{noteTitle: this.state.text, _id: c}]);
+    c++;
     var nextText = '';
     this.setState({items: nextItems, text: nextText});
-    console.log(this.state);
-    console.log('e:', e);
   },
   render: function() {
     return (
