@@ -3,10 +3,16 @@
 
 React = require('react');
 var getNotes = require('../getNotes');
+var c = 0;
 
 var TodoList = React.createClass({displayName: 'TodoList',
   render: function() {
+    var keyId = this.props.items.length;
+    console.log('length num', this.props);
     var createItem = function(itemText) {
+      c++;
+      console.log('keyId:', keyId);
+      console.log('c:', c);
       return React.createElement("li", null, itemText);
     };
     return React.createElement("ol", null, this.props.items.map(createItem));
@@ -15,20 +21,15 @@ var TodoList = React.createClass({displayName: 'TodoList',
 
 var TodoApp = React.createClass({displayName: 'TodoApp',
   getInitialState: function() {
-    obj = {items: [], text: ''};
-    this.getAllNotes();
-    return obj;
+    return {items: [], text: ''};
   },
-  getAllNotes: function() {
+  componentDidMount: function() {
     getNotes(function(data){
       data.forEach(function(element, index){
-        console.log(index);
-        //console.log('inside:', this.items);
-        console.log(data[index].noteTitle);
-      });
-    });
-    console.log('outside:', this.items);
-    console.log('outside this.obj:', this.obj);
+        var nextItems = this.state.items.concat([data[index].noteTitle]);
+        this.setState({items: nextItems, text:''});
+      }.bind(this));
+    }.bind(this));
   },
   onChange: function(e) {
     this.setState({text: e.target.value});
@@ -41,7 +42,8 @@ var TodoApp = React.createClass({displayName: 'TodoApp',
     var nextItems = this.state.items.concat([this.state.text]);
     var nextText = '';
     this.setState({items: nextItems, text: nextText});
-    console.log(this.state.items);
+    console.log(this.state);
+    console.log('e:', e);
   },
   render: function() {
     return (
