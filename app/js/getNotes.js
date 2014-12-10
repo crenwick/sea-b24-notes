@@ -8,6 +8,7 @@ module.exports = function(callback) {
     beforeSend: function(request) {
       request.setRequestHeader('jwt', jwt);
     },
+    type: 'GET',
     dataType: 'json',
     url: '/v1/api/notes',
     success: function(data) {
@@ -15,7 +16,6 @@ module.exports = function(callback) {
     },
     error: function(err) {
       console.log(err);
-      alert('there was an error');
       callback(false);
     }
   });
