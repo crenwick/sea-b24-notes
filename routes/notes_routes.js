@@ -5,7 +5,7 @@ var Note = require('../models/note');
 //    return /^[^\s][a-zA-Z]*$/g.test(value);
 //}, 'Invalid note title. Should only be one word.');
 
-module.exports = function(app, auth) {
+module.exports = function(app) { //add (app, auth) for auth variable
     app.get('/api/notes', function(req, res) {
         //console.log(req.user.basic.email);
         Note.find({}, function(err, data) {
@@ -24,7 +24,7 @@ module.exports = function(app, auth) {
     app.post('/api/notes', function(req, res) {
         var note = new Note(req.body);
         note.save(function(err, data) {
-            if (err) return res.status(500).send('there was an error');
+            if (err) return res.status(500).send('there was an error here');
             res.json(data);
         });
     });

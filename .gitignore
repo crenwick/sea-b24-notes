@@ -1,2 +1,9 @@
 db/
 node_modules/
+build/
+bower_components
+test/test_bundle.js
+.sass-cache/
+.DS_Store
+**/*.sw?
+app/js/react/build/

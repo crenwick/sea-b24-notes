@@ -26,6 +26,8 @@ require('./routes/user_routes')(app, passport);
 require('./routes/notes_routes')(notesRouter);
 app.use('/v1', notesRouter);
 
+app.use(express.static(__dirname + '/build'));
+
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
     console.log('server running on port: %d', app.get('port'));
