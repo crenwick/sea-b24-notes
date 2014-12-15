@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('notesCtrl', ['$scope', '$http', 'ResourceBackend', function($scope, $http, ResourceBackend) {
+  app.controller('notesCtrl', ['$scope', '$http', 'ResourceBackend', '$cookies', '$location', function($scope, $http, ResourceBackend, $cookies, $location) {
     var notesBackend = new ResourceBackend('notes');
+
+    $http.defaults.headers.common.jwt = $cookies.jwt;
 
     $scope.index = function() {
       notesBackend.index()
