@@ -34,5 +34,11 @@ module.exports = function(app) {
         $scope.notes.splice($scope.notes.indexOf(note), 1);
       });
     };
+    
+    $scope.signOut = function() {
+      $cookies.jwt = null;
+      $location.path('/users');
+      console.log('signing out');
+    };
   }]);
 };
