@@ -1,4 +1,7 @@
 <div data-ng-controller="notesCtrl" data-ng-init="index()">
+  <div>
+    <button data-ng-click="signOut()">Sign Out</button>
+  </div>
   <new-note-direc save="saveNewNote(resource)" fieldname="'noteBody'" resourcename="note"></new-note-direc>
 
   <div data-ng-repeat="note in notes">
@@ -14,4 +17,3 @@
     </div>
   </div>
 </div>
-
