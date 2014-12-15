@@ -1,8 +1,4 @@
-'use strict';
-
-module.exports = function(app) {
-  app.controller('UsersCtrl', ['$scope', '$http', '$cookies', '$base64', '$location', function($scope, $http, $cookies, $base64, $location) {
-    $scope.errors = [];
+'use strict'; module.exports = function(app) { app.controller('UsersCtrl', ['$scope', '$http', '$cookies', '$base64', '$location', function($scope, $http, $cookies, $base64, $location) { $scope.errors = [];
     $scope.signIn = function() {
       console.log($scope.user.email);
       console.log($scope.user.password);
@@ -32,7 +28,7 @@ module.exports = function(app) {
 
       $http({
         method: 'POST',
-        url: 'api/users',
+        url: '/api/users',
         data: $scope.newUser
       })
       .success(function(data) {
