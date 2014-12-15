@@ -3,4 +3,6 @@ node_modules/
 bower_components/
 build/
 test/angular_testbundle.js
+test/test_bundle.js
+.DS_Store
 **/*.sw?
