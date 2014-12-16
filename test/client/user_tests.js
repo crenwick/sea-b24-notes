@@ -14,6 +14,7 @@ describe('UsersController', function() {
   beforeEach(angular.mock.inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
     $controllerConstructor = $controller;
+    $cookies = {};
   }));
 
   it('should be able to create a controller', function() {
@@ -24,7 +25,7 @@ describe('UsersController', function() {
   describe('rest request with users', function() {
     beforeEach(angular.mock.inject(function(_$httpBackend_) {
       $httpBackend = _$httpBackend_;
-      $controllerConstructor('UsersCtrl', {$scope: $scope});
+      $controllerConstructor('UsersCtrl', {$scope: $scope, $cookies: $cookies});
     }));
 
     afterEach(function() {
@@ -40,7 +41,24 @@ describe('UsersController', function() {
       $httpBackend.flush();
 
       expect($cookies.jwt).toBeDefined();
-      expect($cookies.jwt).toBe(1);
+      expect($cookies.jwt).toBe('1');
+    });
+
+    it('should make a new user', function() {
+      $httpBackend.expectGET('/api/users').respond(200, {'jwt': '2'});
+      $scope.user = {'email': 'user@example.com', 'password': 'password123'};
+      $scope.signIn();
+
+      $httpBackend.flush();
+
+      expect($cookies.jwt).toBeDefined();
+      expect($cookies.jwt).toBe('2');
+      
+      /*
+        app.get('/api/users', passport.authenticate('basic', {session: false}), function(req, res) {
+    res.json({'jwt': req.user.generateToken(app.get('jwtSecret'))});
+  });
+  */
     });
   });
 });
