@@ -53,12 +53,6 @@ describe('UsersController', function() {
 
       expect($cookies.jwt).toBeDefined();
       expect($cookies.jwt).toBe('2');
-      
-      /*
-        app.get('/api/users', passport.authenticate('basic', {session: false}), function(req, res) {
-    res.json({'jwt': req.user.generateToken(app.get('jwtSecret'))});
-  });
-  */
     });
   });
 });

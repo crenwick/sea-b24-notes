@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
@@ -9,7 +11,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     jshint: {
       options: {
-        node: true
+        jshintrc: '.jshintrc'
       },
       src: ['models/**/*.js', 'lib/**/*.js',  'server.js', 'routes/**/*.js', 'app/js/**/*.js']
     },

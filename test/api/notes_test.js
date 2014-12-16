@@ -1,3 +1,5 @@
+'use strict';
+
 process.env.MONGO_URL = 'mongodb://localhost/notes_test';
 var chai = require('chai');
 var chaihttp = require('chai-http');
@@ -10,11 +12,12 @@ var expect = chai.expect;
 describe('basic notes crud', function() {
   var id;
   var jwttoken;
+  var password = new Buffer('123456678').toString('base64');
 
   it('should create a user', function(done) {
     chai.request('http://localhost:3000')
     .post('/api/users')
-    .send({email: 'user@example.com', password: '123456789'})
+    .send({email: 'user@example.com', password: password})
     .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body).to.have.property('jwt');
